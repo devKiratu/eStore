@@ -3,8 +3,8 @@ import { gql } from "@apollo/client";
 import { Query } from "@apollo/client/react/components";
 import CurrencySwitcher from "./CurrencySwitcher";
 import { NavLink } from "react-router-dom";
-import logo from "../a-logo.svg";
-import cart from "../empty-cart.svg";
+import logo from "../img/a-logo.svg";
+import cart from "../img/empty-cart.svg";
 
 const LOAD_CATEGORIES = gql`
 	query GetCategories {
