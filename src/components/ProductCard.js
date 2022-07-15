@@ -1,13 +1,26 @@
 import React, { Component } from "react";
+import cart from "../img/Vectorwhite-cart.svg";
 
 export class ProductCard extends Component {
+	state = {
+		showCart: false,
+	};
+
+	handleHover = () => {
+		this.setState({ showCart: !this.state.showCart });
+	};
+
 	render() {
 		const { product, currency } = this.props;
 		const [currentPrice] = product.prices.filter(
 			(p) => p.currency.label === currency
 		);
 		return (
-			<div className="product-card">
+			<div
+				className="product-card"
+				onMouseEnter={this.handleHover}
+				onMouseLeave={this.handleHover}
+			>
 				<div className="card-container">
 					<div className="product-main-image">
 						{!product.inStock && (
@@ -31,6 +44,11 @@ export class ProductCard extends Component {
 							src={product.gallery[0]}
 							alt=""
 						/>
+						{this.state.showCart && product.inStock && (
+							<span className="cart-container">
+								<img className="cart-on-card" src={cart} alt={"cart icon"} />
+							</span>
+						)}
 					</div>
 					<p
 						className={`product-name ${

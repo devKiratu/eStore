@@ -80,6 +80,20 @@ code {
 	/* box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.01); */
 }
 
+.cart-container {
+	width: 52px;
+	height: 52px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #5ece7b;
+	border-radius: 50%;
+	position: absolute;
+	right: 4%;
+	bottom: 8%;
+	cursor: pointer;
+}
+
 .product-card:hover {
 	box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
 }
