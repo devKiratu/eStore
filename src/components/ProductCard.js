@@ -24,25 +24,14 @@ export class ProductCard extends Component {
 				<div className="card-container">
 					<div className="product-main-image">
 						{!product.inStock && (
-							<span
-								style={{
-									position: "absolute",
-									bottom: "50%",
-									right: "30%",
-									color: "#8d8f9a",
-									fontSize: "24px",
-									fontWeight: "400",
-								}}
-							>
-								OUT OF STOCK
-							</span>
+							<span className="outofstock-watermark">OUT OF STOCK</span>
 						)}
 						<img
 							className={`product-img ${
 								!product.inStock && "out-of-stock-img"
 							}`}
 							src={product.gallery[0]}
-							alt=""
+							alt={`${product.name} pic`}
 						/>
 						{this.state.showCart && product.inStock && (
 							<span className="cart-container">
