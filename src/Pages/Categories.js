@@ -9,6 +9,7 @@ const LOAD_ALL_PRODUCTS = gql`
 			name
 			products {
 				name
+				inStock
 				category
 				gallery
 				prices {

@@ -75,6 +75,7 @@ code {
 	/* border: 1px solid gray; */
 	width: 100%;
 	min-height: max-content;
+	position: relative;
 	/* padding: 10px; */
 	/* box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.01); */
 }
@@ -90,6 +91,14 @@ code {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.out-of-stock-img {
+	opacity: 0.5;
+}
+
+.out-of-stock-text {
+	color: #8d8f9a;
 }
 
 .product-img {
