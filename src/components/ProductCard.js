@@ -8,13 +8,15 @@ export class ProductCard extends Component {
 		);
 		return (
 			<div className="product-card">
-				<div className="product-main-image">
-					<img className="product-img" src={product.gallery[0]} alt="" />
-				</div>
-				<div>{product.name}</div>
-				<div>
-					{currentPrice.currency.symbol}
-					{currentPrice.amount}
+				<div className="card-container">
+					<div className="product-main-image">
+						<img className="product-img" src={product.gallery[0]} alt="" />
+					</div>
+					<p className="product-name">{product.name}</p>
+					<p className="product-price">
+						{currentPrice.currency.symbol}
+						{currentPrice.amount}
+					</p>
 				</div>
 			</div>
 		);

@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { gql } from "@apollo/client";
 import { Query } from "@apollo/client/react/components";
+import CurrencySwitcher from "./CurrencySwitcher";
+import { NavLink } from "react-router-dom";
+import logo from "../a-logo.svg";
+import cart from "../empty-cart.svg";
 
 const LOAD_CATEGORIES = gql`
 	query GetCategories {
@@ -21,23 +25,33 @@ export class Navbar extends Component {
 								if (loading) return <span>fetching categories ...</span>;
 								if (error) return <span>Oops! :(</span>;
 								return data.categories.map((category, index) => (
-									<span
-										className="nav-item"
+									<NavLink
+										to={"/"}
+										className={`nav-item`}
 										key={index}
-										onClick={() => this.props.onClick(category.name)}
+										onClick={() => this.props.onCategoryChange(category.name)}
 									>
 										{category.name}
-									</span>
+									</NavLink>
 								));
 							}}
 						</Query>
 					</div>
 					<div>
-						<span className="nav-item">Logo</span>
+						<img
+							src={logo}
+							alt={"logo"}
+							style={{ width: "32px", height: "auto" }}
+						/>
+						{/* <span className="nav-item">Logo</span> */}
 					</div>
 					<div>
-						<span className="nav-item">$ v</span>
-						<span className="nav-item">Cart</span>
+						<CurrencySwitcher
+							onCurrencyChange={this.props.onCurrencyChange}
+							currency={this.props.currency}
+						/>
+						<img style={{ marginLeft: "22px" }} src={cart} alt={"cart icon"} />
+						{/* <span className="nav-item">Cart</span> */}
 					</div>
 				</div>
 			</div>
