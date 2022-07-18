@@ -1,0 +1,64 @@
+.pdp-container {
+	margin-top: 60px;
+	display: grid;
+	grid-template-columns: 1fr 3fr 2fr;
+	gap: 20px;
+	border: 1px solid gray;
+}
+
+/* Image thumbnails */
+
+.pdp-thumbnails {
+	/* border: 1px solid greenyellow; */
+}
+
+/* Main image section */
+
+.pdp-main-image {
+	/* border: 1px solid crimson; */
+}
+
+/* product descriptions */
+
+.pdp-descriptions {
+	/* border: 1px solid cornflowerblue; */
+	margin-left: 50px;
+}
+
+.brand-name {
+	font-weight: 600;
+	font-size: 30px;
+}
+
+.pdp-product-name {
+	font-weight: 400;
+	font-size: 30px;
+	padding: 16px 0 43px 0;
+}
+
+.pdp-attribute-name {
+	text-transform: uppercase;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.pdp-add-button {
+	background-color: #5ece7b;
+	padding: 16px 32px;
+	text-align: center;
+	outline: none;
+	border: none;
+	font-weight: 600;
+	color: #ffffff;
+	font-size: 16px;
+	text-transform: uppercase;
+	margin: 20px 0;
+	cursor: pointer;
+}
+
+div.pdp-innerhtml,
+div.pdp-innerhtml * {
+	font-family: "Roboto", sans-serif;
+	font-size: 16px;
+	line-height: 26px;
+}

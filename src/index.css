@@ -95,6 +95,10 @@ body {
 	padding: 40px 0 60px 0;
 }
 
+.routing-link {
+	text-decoration: none;
+}
+
 .product-card {
 	/* border: 1px solid gray; */
 	width: 100%;

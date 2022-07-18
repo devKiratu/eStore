@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import ProductCard from "../components/ProductCard";
 import { gql } from "@apollo/client";
 import { Query } from "@apollo/client/react/components";
+import { Link } from "react-router-dom";
 
 const LOAD_ALL_PRODUCTS = gql`
 	query GetAllProducts($title: String!) {
 		category(input: { title: $title }) {
 			name
 			products {
+				id
 				name
 				inStock
 				category
@@ -37,13 +39,19 @@ export class Categories extends Component {
 							if (loading) return <span>loading...</span>;
 							if (error) return <span>Something went wrong :(</span>;
 							// console.log(data);
-							return data.category.products.map((item, index) => (
-								<ProductCard
-									category={this.props.category}
-									currency={this.props.currency}
-									key={index}
-									product={item}
-								/>
+							return data.category.products.map((item) => (
+								<Link
+									className="routing-link"
+									to={`/products/${item.id}`}
+									key={item.id}
+									id={item.id}
+								>
+									<ProductCard
+										category={this.props.category}
+										currency={this.props.currency}
+										product={item}
+									/>
+								</Link>
 							));
 						}}
 					</Query>
