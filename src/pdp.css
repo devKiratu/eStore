@@ -9,13 +9,17 @@
 /* Image thumbnails */
 
 .pdp-thumbnails {
-	/* border: 1px solid greenyellow; */
+	border: 1px solid greenyellow;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: left;
 }
 
 /* Main image section */
 
 .pdp-main-image {
-	/* border: 1px solid crimson; */
+	border: 1px solid crimson;
 }
 
 /* product descriptions */

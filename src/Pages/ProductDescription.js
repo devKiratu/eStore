@@ -42,7 +42,7 @@ export class ProductDescription extends Component {
 						if (error) return <span>something went wrong :(</span>;
 						const { name, brand, gallery, attributes, description } =
 							data.product;
-						// console.log(data);
+						console.log("gallery", gallery);
 						console.log("attributes ", attributes);
 						const [currentPrice] = data.product.prices.filter(
 							(p) => p.currency.label === this.props.currency
@@ -50,7 +50,22 @@ export class ProductDescription extends Component {
 						// console.log("current price", currentPrice);
 						return (
 							<>
-								<div className="pdp-thumbnails">thumbnails</div>
+								<div className="pdp-thumbnails">
+									{gallery.map((item, index) => (
+										<img
+											key={index}
+											src={item}
+											alt={`${name} pic`}
+											style={{
+												width: "79px",
+												height: "80px",
+												objectFit: "contain",
+												border: "1px solid gray",
+												marginBottom: "32px",
+											}}
+										/>
+									))}
+								</div>
 								<div className="pdp-main-image">main image</div>
 								<div className="pdp-descriptions">
 									<p className="brand-name">{brand}</p>
