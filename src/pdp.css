@@ -3,13 +3,13 @@
 	display: grid;
 	grid-template-columns: 1fr 3fr 2fr;
 	gap: 20px;
-	border: 1px solid gray;
+	/* border: 1px solid gray; */
 }
 
 /* Image thumbnails */
 
 .pdp-thumbnails {
-	border: 1px solid greenyellow;
+	/* border: 1px solid greenyellow; */
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
@@ -19,7 +19,7 @@
 /* Main image section */
 
 .pdp-main-image {
-	border: 1px solid crimson;
+	/* border: 1px solid crimson; */
 }
 
 /* product descriptions */
@@ -46,12 +46,6 @@
 	font-weight: 700;
 }
 
-.text {
-}
-
-.swatch {
-}
-
 .pdp-price-details {
 	font-weight: 700;
 	font-size: 24px;
@@ -70,6 +64,11 @@
 	text-transform: uppercase;
 	margin: 20px 0;
 	cursor: pointer;
+}
+
+.pdp-add-button:disabled {
+	opacity: 0.8;
+	cursor: not-allowed;
 }
 
 div.pdp-innerhtml,

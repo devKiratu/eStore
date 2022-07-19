@@ -8,6 +8,7 @@ const LOAD_PRODUCT = gql`
 		product(id: $id) {
 			name
 			brand
+			inStock
 			prices {
 				currency {
 					label
@@ -31,6 +32,14 @@ const LOAD_PRODUCT = gql`
 `;
 
 export class ProductDescription extends Component {
+	state = {
+		currentImage: null,
+	};
+
+	handleImageChange = (uri) => {
+		this.setState({ currentImage: uri });
+	};
+
 	render() {
 		const { id } = this.props.match.params;
 		console.log(this.props);
@@ -40,10 +49,12 @@ export class ProductDescription extends Component {
 					{({ loading, error, data }) => {
 						if (loading) return <span>fetching product...</span>;
 						if (error) return <span>something went wrong :(</span>;
-						const { name, brand, gallery, attributes, description } =
+						const { name, brand, inStock, gallery, attributes, description } =
 							data.product;
-						console.log("gallery", gallery);
-						console.log("attributes ", attributes);
+
+						console.log("in stock: ", inStock);
+						// console.log("gallery", gallery);
+						// console.log("attributes ", attributes);
 						const [currentPrice] = data.product.prices.filter(
 							(p) => p.currency.label === this.props.currency
 						);
@@ -60,13 +71,26 @@ export class ProductDescription extends Component {
 												width: "79px",
 												height: "80px",
 												objectFit: "contain",
-												border: "1px solid gray",
+												// border: "1px solid gray",
 												marginBottom: "32px",
+												cursor: "pointer",
 											}}
+											onClick={() => this.handleImageChange(item)}
 										/>
 									))}
 								</div>
-								<div className="pdp-main-image">main image</div>
+								<div className="pdp-main-image">
+									<img
+										src={this.state.currentImage ?? gallery[0]}
+										alt={`${name} pic`}
+										style={{
+											width: "610px",
+											height: "511px",
+											objectFit: "contain",
+											// border: "1px solid cyan",
+										}}
+									/>
+								</div>
 								<div className="pdp-descriptions">
 									<p className="brand-name">{brand}</p>
 									<p className="pdp-product-name">{name}</p>
@@ -113,7 +137,9 @@ export class ProductDescription extends Component {
 									<p className="pdp-price-details">
 										{currentPrice.currency.symbol} {currentPrice.amount}
 									</p>
-									<button className="pdp-add-button">Add to cart</button>
+									<button className="pdp-add-button" disabled={!inStock}>
+										Add to cart
+									</button>
 									<div
 										className="pdp-innerhtml"
 										dangerouslySetInnerHTML={{ __html: description }}
