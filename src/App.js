@@ -37,7 +37,10 @@ class App extends Component {
 					<div className="page-container">
 						<Switch>
 							<Route path="/products/:id">
-								<ProductDescription id=":id" />
+								<ProductDescription
+									id=":id"
+									currency={this.state.activeCurrency}
+								/>
 							</Route>
 							<Route path="/" exact>
 								<Categories

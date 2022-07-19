@@ -100,7 +100,7 @@ body {
 }
 
 .product-card {
-	/* border: 1px solid gray; */
+	border: 1px solid gray;
 	width: 100%;
 	min-height: max-content;
 	position: relative;

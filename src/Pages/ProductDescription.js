@@ -8,6 +8,13 @@ const LOAD_PRODUCT = gql`
 		product(id: $id) {
 			name
 			brand
+			prices {
+				currency {
+					label
+					symbol
+				}
+				amount
+			}
 			attributes {
 				name
 				type
@@ -26,6 +33,7 @@ const LOAD_PRODUCT = gql`
 export class ProductDescription extends Component {
 	render() {
 		const { id } = this.props.match.params;
+		console.log(this.props);
 		return (
 			<div className="pdp-container">
 				<Query query={LOAD_PRODUCT} variables={{ id }}>
@@ -34,7 +42,12 @@ export class ProductDescription extends Component {
 						if (error) return <span>something went wrong :(</span>;
 						const { name, brand, gallery, attributes, description } =
 							data.product;
-						console.log(data);
+						// console.log(data);
+						console.log("attributes ", attributes);
+						const [currentPrice] = data.product.prices.filter(
+							(p) => p.currency.label === this.props.currency
+						);
+						// console.log("current price", currentPrice);
 						return (
 							<>
 								<div className="pdp-thumbnails">thumbnails</div>
@@ -42,8 +55,49 @@ export class ProductDescription extends Component {
 								<div className="pdp-descriptions">
 									<p className="brand-name">{brand}</p>
 									<p className="pdp-product-name">{name}</p>
-									<p className="pdp-attribute-name">{attributes[0]?.name}:</p>
-									<p className="pdp-attribute-name">price:</p>
+									{attributes.map((a, i) => (
+										<div key={i}>
+											<p className="pdp-attribute-name" key={a.name}>
+												{a.name}:
+											</p>
+											<div>
+												{a.items.map((i) =>
+													a.type === "swatch" ? (
+														<p
+															style={{
+																backgroundColor: `${i.value}`,
+																border: "0.5px solid gray",
+																width: "32px",
+																height: "32px",
+																margin: "8px 10px 36px 0",
+																display: "inline-block",
+															}}
+															key={i.displayValue}
+														></p>
+													) : (
+														<p
+															style={{
+																border: "1px solid gray",
+																width: "63px",
+																height: "45px",
+																margin: "8px 12px 24px 0",
+																display: "inline-flex",
+																justifyContent: "center",
+																alignItems: "center",
+															}}
+															key={i.displayValue}
+														>
+															{i.value}
+														</p>
+													)
+												)}
+											</div>
+										</div>
+									))}
+									<p className="pdp-attribute-name">price: </p>
+									<p className="pdp-price-details">
+										{currentPrice.currency.symbol} {currentPrice.amount}
+									</p>
 									<button className="pdp-add-button">Add to cart</button>
 									<div
 										className="pdp-innerhtml"
