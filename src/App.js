@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import Categories from "./Pages/Categories";
 import Navbar from "./components/Navbar";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import ProductDescription from "./Pages/ProductDescription";
 
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
@@ -34,17 +35,20 @@ class App extends Component {
 						category={this.state.activeCategory}
 					/>
 					<div className="page-container">
-						<Routes>
-							<Route
-								path="/"
-								element={
-									<Categories
-										category={this.state.activeCategory}
-										currency={this.state.activeCurrency}
-									/>
-								}
-							/>
-						</Routes>
+						<Switch>
+							<Route path="/products/:id">
+								<ProductDescription
+									id=":id"
+									currency={this.state.activeCurrency}
+								/>
+							</Route>
+							<Route path="/" exact>
+								<Categories
+									category={this.state.activeCategory}
+									currency={this.state.activeCurrency}
+								/>
+							</Route>
+						</Switch>
 					</div>
 				</BrowserRouter>
 			</ApolloProvider>
