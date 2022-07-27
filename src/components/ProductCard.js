@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import cart from "../img/Vectorwhite-cart.svg";
+import { connect } from "react-redux";
+import { itemAdded } from "../store/cart";
+import { Link } from "react-router-dom";
 
 export class ProductCard extends Component {
 	state = {
@@ -34,7 +37,10 @@ export class ProductCard extends Component {
 							alt={`${product.name} pic`}
 						/>
 						{this.state.showCart && product.inStock && (
-							<span className="cart-container">
+							<span
+								className="cart-container"
+								onClick={() => this.props.addToCart(product)}
+							>
 								<img className="cart-on-card" src={cart} alt={"cart icon"} />
 							</span>
 						)}
@@ -60,4 +66,8 @@ export class ProductCard extends Component {
 	}
 }
 
-export default ProductCard;
+const mapDispatchToProps = (dispatch) => ({
+	addToCart: (product) => dispatch(itemAdded(product)),
+});
+
+export default connect(null, mapDispatchToProps)(ProductCard);

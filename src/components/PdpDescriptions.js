@@ -34,7 +34,11 @@ export class PdpDescriptions extends Component {
 				<p className="pdp-price-details">
 					{currentPrice.currency.symbol} {currentPrice.amount}
 				</p>
-				<button className="pdp-add-button" disabled={!inStock}>
+				<button
+					className="pdp-add-button"
+					disabled={!inStock}
+					onClick={() => this.props.onClick()}
+				>
 					Add to cart
 				</button>
 				<div

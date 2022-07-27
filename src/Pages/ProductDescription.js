@@ -3,6 +3,8 @@ import { withRouter } from "react-router-dom";
 import { gql } from "@apollo/client";
 import { Query } from "@apollo/client/react/components";
 import PdpDescriptions from "../components/PdpDescriptions";
+import { itemAdded } from "../store/cart";
+import { connect } from "react-redux";
 
 const LOAD_PRODUCT = gql`
 	query GetProduct($id: String!) {
@@ -35,17 +37,29 @@ const LOAD_PRODUCT = gql`
 export class ProductDescription extends Component {
 	state = {
 		currentImage: null,
+		product: null,
 	};
 
 	handleImageChange = (uri) => {
 		this.setState({ currentImage: uri });
 	};
 
+	handleAddToCart = () => {
+		console.log(this.state.product);
+		this.props.addToCart(this.state.product);
+	};
+
 	render() {
 		const { id } = this.props.match.params;
 		return (
 			<div className="pdp-container">
-				<Query query={LOAD_PRODUCT} variables={{ id }}>
+				<Query
+					query={LOAD_PRODUCT}
+					variables={{ id }}
+					onCompleted={(data) =>
+						this.setState({ ...this.state, product: data.product })
+					}
+				>
 					{({ loading, error, data }) => {
 						if (loading) return <span>fetching product...</span>;
 						if (error) return <span>something went wrong :(</span>;
@@ -89,6 +103,7 @@ export class ProductDescription extends Component {
 									currentPrice={currentPrice}
 									inStock={inStock}
 									description={description}
+									onClick={this.handleAddToCart}
 								/>
 							</>
 						);
@@ -99,4 +114,10 @@ export class ProductDescription extends Component {
 	}
 }
 
-export default withRouter(ProductDescription);
+const mapDispatchToProps = (dispatch) => ({
+	addToCart: (product) => dispatch(itemAdded(product)),
+});
+
+export default withRouter(
+	connect(null, mapDispatchToProps)(ProductDescription)
+);

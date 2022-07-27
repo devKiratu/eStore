@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { gql } from "@apollo/client";
 import { Query } from "@apollo/client/react/components";
 import CurrencySwitcher from "./CurrencySwitcher";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../img/a-logo.svg";
 import cart from "../img/empty-cart.svg";
 
@@ -50,7 +50,13 @@ export class Navbar extends Component {
 							onCurrencyChange={this.props.onCurrencyChange}
 							currency={this.props.currency}
 						/>
-						<img style={{ marginLeft: "22px" }} src={cart} alt={"cart icon"} />
+						<Link to="/cart">
+							<img
+								style={{ marginLeft: "22px" }}
+								src={cart}
+								alt={"cart icon"}
+							/>
+						</Link>
 						{/* <span className="nav-item">Cart</span> */}
 					</div>
 				</div>
