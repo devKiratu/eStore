@@ -55,29 +55,7 @@ export class Navbar extends Component {
 								src={cartIcon}
 								alt={"cart icon"}
 							/>
-							{items > 0 && (
-								<span
-									style={{
-										position: "absolute",
-										top: "2%",
-										right: "4%",
-										width: "20px",
-										height: "20px",
-										display: "flex",
-										justifyContent: "center",
-										alignItems: "center",
-										borderRadius: "50%",
-										color: "white",
-										backgroundColor: "#1D1F22",
-										fontFamily: "Roboto, sans-serif",
-										fontWeight: "700",
-										fontSize: "14px",
-										lineHeight: "16px",
-									}}
-								>
-									{items}
-								</span>
-							)}
+							{items > 0 && <span className="cart-items-count">{items}</span>}
 						</Link>
 					</div>
 				</div>

@@ -74,6 +74,24 @@ body {
 	background-color: #eeeeee;
 }
 
+.cart-items-count {
+	position: absolute;
+	top: 2%;
+	right: 4%;
+	width: 20px;
+	height: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	color: white;
+	background-color: #1d1f22;
+	font-family: "Roboto", sans-serif;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 16px;
+}
+
 /* Main page */
 
 .page-container {
