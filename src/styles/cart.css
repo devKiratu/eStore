@@ -1,0 +1,18 @@
+.cart-title {
+	font-weight: 700;
+	font-size: 32px;
+	line-height: 40px;
+	text-transform: uppercase;
+	margin: 48px 0 55px 0;
+}
+
+.divider-line {
+	border: 1px solid #e5e5e5;
+	margin-bottom: 24px;
+}
+
+.cart-item {
+	display: grid;
+	grid-template-columns: 4fr 2fr;
+	gap: 10px;
+}
