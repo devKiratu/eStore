@@ -74,7 +74,7 @@ export class ProductDescription extends Component {
 						} = data.product;
 
 						const [currentPrice] = prices.filter(
-							(p) => p.currency.label === this.props.currency
+							(p) => p.currency.label === this.props.currency.label
 						);
 						return (
 							<>
@@ -114,10 +114,14 @@ export class ProductDescription extends Component {
 	}
 }
 
+const mapStateToProps = (state) => ({
+	currency: state.app.activeCurrency,
+});
+
 const mapDispatchToProps = (dispatch) => ({
 	addToCart: (product) => dispatch(itemAdded(product)),
 });
 
 export default withRouter(
-	connect(null, mapDispatchToProps)(ProductDescription)
+	connect(mapStateToProps, mapDispatchToProps)(ProductDescription)
 );

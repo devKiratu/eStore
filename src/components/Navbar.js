@@ -4,7 +4,9 @@ import { Query } from "@apollo/client/react/components";
 import CurrencySwitcher from "./CurrencySwitcher";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../img/a-logo.svg";
-import cart from "../img/empty-cart.svg";
+import cartIcon from "../img/empty-cart.svg";
+import { connect } from "react-redux";
+import { activeCategorySet } from "../store/app";
 
 const LOAD_CATEGORIES = gql`
 	query GetCategories {
@@ -16,6 +18,7 @@ const LOAD_CATEGORIES = gql`
 
 export class Navbar extends Component {
 	render() {
+		const { items } = this.props;
 		return (
 			<div>
 				<div className="navbar">
@@ -43,21 +46,39 @@ export class Navbar extends Component {
 							alt={"logo"}
 							style={{ width: "32px", height: "auto" }}
 						/>
-						{/* <span className="nav-item">Logo</span> */}
 					</div>
 					<div>
-						<CurrencySwitcher
-							onCurrencyChange={this.props.onCurrencyChange}
-							currency={this.props.currency}
-						/>
-						<Link to="/cart">
+						<CurrencySwitcher />
+						<Link to="/cart" className="routing-link">
 							<img
 								style={{ marginLeft: "22px" }}
-								src={cart}
+								src={cartIcon}
 								alt={"cart icon"}
 							/>
+							{items > 0 && (
+								<span
+									style={{
+										position: "absolute",
+										top: "2%",
+										right: "4%",
+										width: "20px",
+										height: "20px",
+										display: "flex",
+										justifyContent: "center",
+										alignItems: "center",
+										borderRadius: "50%",
+										color: "white",
+										backgroundColor: "#1D1F22",
+										fontFamily: "Roboto, sans-serif",
+										fontWeight: "700",
+										fontSize: "14px",
+										lineHeight: "16px",
+									}}
+								>
+									{items}
+								</span>
+							)}
 						</Link>
-						{/* <span className="nav-item">Cart</span> */}
 					</div>
 				</div>
 			</div>
@@ -65,4 +86,12 @@ export class Navbar extends Component {
 	}
 }
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+	items: state.cart.totalItems,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	onCategoryChange: (name) => dispatch(activeCategorySet(name)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

@@ -3,6 +3,7 @@ import ProductCard from "../components/ProductCard";
 import { gql } from "@apollo/client";
 import { Query } from "@apollo/client/react/components";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 const LOAD_ALL_PRODUCTS = gql`
 	query GetAllProducts($title: String!) {
@@ -46,11 +47,7 @@ export class Categories extends Component {
 									key={item.id}
 									id={item.id}
 								>
-									<ProductCard
-										category={this.props.category}
-										currency={this.props.currency}
-										product={item}
-									/>
+									<ProductCard product={item} key={item.id} id={item.id} />
 								</Link>
 							));
 						}}
@@ -61,4 +58,9 @@ export class Categories extends Component {
 	}
 }
 
-export default Categories;
+const mapStateToProps = (state) => ({
+	category: state.app.activeCategory,
+	currency: state.app.activeCurrency,
+});
+
+export default connect(mapStateToProps)(Categories);

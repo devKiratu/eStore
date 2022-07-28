@@ -3,6 +3,8 @@ import { gql } from "@apollo/client";
 import { Query } from "@apollo/client/react/components";
 import arrowup from "../img/arrow-up.svg";
 import arrowdown from "../img/arrow-down.svg";
+import { connect } from "react-redux";
+import { activeCurrencySet } from "../store/app";
 
 const LOAD_CURRENCIES = gql`
 	query GetAllCurrencies {
@@ -15,29 +17,24 @@ const LOAD_CURRENCIES = gql`
 
 export class CurrencySwitcher extends Component {
 	state = {
-		currency: {
-			symbol: "$",
-			label: "USD",
-		},
 		isOpen: false,
 	};
 
 	toggleCurrencyList = () => {
-		this.setState({ ...this.state, isOpen: !this.state.isOpen });
+		this.setState({ isOpen: !this.state.isOpen });
 	};
 
 	handleCurrencyChange = (currency) => {
 		this.setState({
-			currency: { symbol: currency.symbol, label: currency.label },
 			isOpen: !this.state.isOpen,
 		});
-		this.props.onCurrencyChange(currency.label);
+		this.props.onCurrencyChange(currency);
 	};
 	render() {
 		return (
 			<>
 				<span className="currency-switcher" onClick={this.toggleCurrencyList}>
-					{this.state.currency.symbol} &nbsp; &nbsp;
+					{this.props.currency.symbol} &nbsp; &nbsp;
 					<img
 						src={this.state.isOpen ? arrowup : arrowdown}
 						alt={this.state.isOpen ? "close list icon" : "open list icon"}
@@ -70,4 +67,12 @@ export class CurrencySwitcher extends Component {
 	}
 }
 
-export default CurrencySwitcher;
+const mapStateToProps = (state) => ({
+	currency: state.app.activeCurrency,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	onCurrencyChange: (currency) => dispatch(activeCurrencySet(currency)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrencySwitcher);

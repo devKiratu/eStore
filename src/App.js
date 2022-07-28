@@ -13,48 +13,17 @@ const client = new ApolloClient({
 	uri: "http://localhost:4000",
 });
 class App extends Component {
-	state = {
-		activeCategory: "all",
-		activeCurrency: "USD",
-	};
-
-	setActiveCategory = (name) => {
-		this.setState({ activeCategory: name });
-	};
-
-	setActiveCurrency = (currency) => {
-		console.log("I was called with", currency);
-		this.setState({ ...this.state, activeCurrency: currency });
-	};
-
 	render() {
 		return (
 			<ApolloProvider client={client}>
 				<Provider store={store}>
 					<BrowserRouter>
-						<Navbar
-							onCategoryChange={this.setActiveCategory}
-							onCurrencyChange={this.setActiveCurrency}
-							currency={this.state.activeCurrency}
-							category={this.state.activeCategory}
-						/>
+						<Navbar />
 						<div className="page-container">
 							<Switch>
-								<Route path="/products/:id">
-									<ProductDescription
-										id=":id"
-										currency={this.state.activeCurrency}
-									/>
-								</Route>
-								<Route path={"/cart"}>
-									<Cart />
-								</Route>
-								<Route path="/" exact>
-									<Categories
-										category={this.state.activeCategory}
-										currency={this.state.activeCurrency}
-									/>
-								</Route>
+								<Route path="/products/:id" component={ProductDescription} />
+								<Route path={"/cart"} component={Cart} />
+								<Route path="/" exact component={Categories} />
 							</Switch>
 						</div>
 					</BrowserRouter>

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import cart from "../img/Vectorwhite-cart.svg";
 import { connect } from "react-redux";
 import { itemAdded } from "../store/cart";
-import { Link } from "react-router-dom";
 
 export class ProductCard extends Component {
 	state = {
@@ -16,7 +15,7 @@ export class ProductCard extends Component {
 	render() {
 		const { product, currency } = this.props;
 		const [currentPrice] = product.prices.filter(
-			(p) => p.currency.label === currency
+			(p) => p.currency.label === currency.label
 		);
 		return (
 			<div
@@ -66,8 +65,13 @@ export class ProductCard extends Component {
 	}
 }
 
+const mapStateToProps = (state) => ({
+	category: state.app.activeCategory,
+	currency: state.app.activeCurrency,
+});
+
 const mapDispatchToProps = (dispatch) => ({
 	addToCart: (product) => dispatch(itemAdded(product)),
 });
 
-export default connect(null, mapDispatchToProps)(ProductCard);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);
