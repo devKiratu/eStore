@@ -40,7 +40,6 @@ export class ImageCarousel extends Component {
 
 	render() {
 		const { item } = this.props;
-		console.log(this.state.gallery, this.state.length);
 		return (
 			<div className="cart-item-images">
 				<img
