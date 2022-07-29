@@ -52,6 +52,7 @@
 	font-size: 24px;
 	line-height: 160%;
 	font-weight: 500;
+	cursor: pointer;
 }
 
 .item-count {
@@ -80,4 +81,27 @@
 	margin-right: 8px;
 	cursor: pointer;
 	/* border: 1px solid yellow; */
+}
+
+.order-button {
+	width: 279px;
+	/* height: 43px; */
+	background: #5ece7b;
+	padding: 16px 32px;
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 120%;
+	text-transform: uppercase;
+	color: #ffffff;
+	border: none;
+	outline: none;
+	margin: 20px 0;
+	cursor: pointer;
+}
+
+.sale-summary {
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+	gap: 2px;
+	width: 279px;
 }

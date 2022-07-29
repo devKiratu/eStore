@@ -5,7 +5,7 @@ import CartItem from "../components/CartItem";
 export class Cart extends Component {
 	render() {
 		console.log(this.props.products);
-		const { products, items } = this.props;
+		const { products, items, currency, totalPrice } = this.props;
 		return (
 			<>
 				<p className="cart-title">Cart</p>
@@ -15,10 +15,34 @@ export class Cart extends Component {
 					return (
 						<div key={index}>
 							<CartItem item={item} />
-							<hr className="divider-line" />
 						</div>
 					);
 				})}
+				{items > 0 && (
+					<>
+						<div className="sale-summary">
+							<p>Tax 21%:</p>
+							<p>
+								<strong>
+									{currency.symbol}
+									{(0.21 * totalPrice).toFixed(2)}
+								</strong>
+							</p>
+							<p>Quantity: </p>
+							<p>
+								<strong>{items}</strong>
+							</p>
+							<p>Total: </p>
+							<p>
+								<strong>
+									{currency.symbol}
+									{totalPrice.toFixed(2)}
+								</strong>
+							</p>
+						</div>
+						<button className="order-button">Order</button>
+					</>
+				)}
 			</>
 		);
 	}
@@ -27,6 +51,7 @@ export class Cart extends Component {
 const mapStateToProps = (state) => ({
 	products: state.cart.products,
 	items: state.cart.totalItems,
+	totalPrice: state.cart.totalPrice,
 	currency: state.app.activeCurrency,
 });
 export default connect(mapStateToProps)(Cart);

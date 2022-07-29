@@ -46,7 +46,9 @@ export class ProductDescription extends Component {
 
 	handleAddToCart = () => {
 		console.log(this.state.product);
-		this.props.addToCart(this.state.product);
+		const { product } = this.state;
+		const { currency, addToCart } = this.props;
+		addToCart({ product, currency });
 	};
 
 	render() {

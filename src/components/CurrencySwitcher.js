@@ -5,6 +5,7 @@ import arrowup from "../img/arrow-up.svg";
 import arrowdown from "../img/arrow-down.svg";
 import { connect } from "react-redux";
 import { activeCurrencySet } from "../store/app";
+import { pricesUpdated } from "../store/cart";
 
 const LOAD_CURRENCIES = gql`
 	query GetAllCurrencies {
@@ -29,6 +30,7 @@ export class CurrencySwitcher extends Component {
 			isOpen: !this.state.isOpen,
 		});
 		this.props.onCurrencyChange(currency);
+		this.props.updatePrices(currency);
 	};
 	render() {
 		return (
@@ -73,6 +75,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
 	onCurrencyChange: (currency) => dispatch(activeCurrencySet(currency)),
+	updatePrices: (currency) => dispatch(pricesUpdated(currency)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrencySwitcher);
