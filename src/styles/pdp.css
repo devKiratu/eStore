@@ -66,21 +66,34 @@
 	font-weight: 700;
 }
 
-.attribute-type-swatch {
-	border: 0.5px solid gray;
+label.attribute-type-swatch {
+	box-sizing: content-box;
+	border: 0.009px solid gray;
 	width: 32px;
 	height: 32px;
 	margin: 8px 10px 36px 0;
 	display: inline-block;
+	cursor: pointer;
 }
-.attribute-type-text {
-	border: 1px solid gray;
+
+label.attribute-type-text {
+	border: 1px solid #1d1f22;
 	width: 63px;
 	height: 45px;
 	margin: 8px 12px 24px 0;
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
+	cursor: pointer;
+}
+
+input[type="radio"]:checked + label.attribute-type-text {
+	background-color: black;
+	color: white;
+}
+
+input[type="radio"]:checked + label.attribute-type-swatch {
+	border: 2px solid #5ece7b;
 }
 
 .pdp-price-details {
@@ -113,4 +126,8 @@ div.pdp-innerhtml * {
 	font-family: "Roboto", sans-serif;
 	font-size: 16px;
 	line-height: 26px;
+}
+
+input[type="radio"] {
+	display: none;
 }

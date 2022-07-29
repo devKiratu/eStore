@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Attribute from "./Attribute";
 
 export class PdpDescriptions extends Component {
 	render() {
@@ -8,25 +9,15 @@ export class PdpDescriptions extends Component {
 			<div className="pdp-descriptions">
 				<p className="brand-name">{brand}</p>
 				<p className="pdp-product-name">{name}</p>
-				{attributes.map((a, i) => (
-					<div key={i}>
-						<p className="pdp-attribute-name" key={a.name}>
-							{a.name}:
+				{attributes.map((attribute, index) => (
+					<div key={index}>
+						<p className="pdp-attribute-name" key={attribute.name}>
+							{attribute.name}:
 						</p>
 						<div>
-							{a.items.map((i) =>
-								a.type === "swatch" ? (
-									<p
-										className="attribute-type-swatch"
-										style={{ backgroundColor: `${i.value}` }}
-										key={i.displayValue}
-									></p>
-								) : (
-									<p className="attribute-type-text" key={i.displayValue}>
-										{i.value}
-									</p>
-								)
-							)}
+							{attribute.items.map((item, index) => (
+								<Attribute attribute={attribute} item={item} key={index} />
+							))}
 						</div>
 					</div>
 				))}

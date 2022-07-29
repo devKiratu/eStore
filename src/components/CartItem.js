@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Attribute from "./Attribute";
 
 import ImageCarousel from "./ImageCarousel";
 
@@ -34,25 +35,19 @@ export class CartItem extends Component {
 								{currentPrice.currency.symbol}
 								{currentPrice.amount}
 							</p>
-							{item.attributes.map((a, i) => (
-								<div key={i}>
-									<p className="pdp-attribute-name" key={a.name}>
-										{a.name}:
+							{item.attributes.map((attribute, index) => (
+								<div key={index}>
+									<p className="pdp-attribute-name" key={attribute.name}>
+										{attribute.name}:
 									</p>
 									<div>
-										{a.items.map((i) =>
-											a.type === "swatch" ? (
-												<p
-													className="attribute-type-swatch"
-													style={{ backgroundColor: `${i.value}` }}
-													key={i.displayValue}
-												></p>
-											) : (
-												<p className="attribute-type-text" key={i.displayValue}>
-													{i.value}
-												</p>
-											)
-										)}
+										{attribute.items.map((item, index) => (
+											<Attribute
+												attribute={attribute}
+												item={item}
+												key={index}
+											/>
+										))}
 									</div>
 								</div>
 							))}
