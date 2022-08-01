@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 const LOAD_PRODUCT = gql`
 	query GetProduct($id: String!) {
 		product(id: $id) {
+			id
 			name
 			brand
 			inStock
@@ -44,10 +45,21 @@ export class ProductDescription extends Component {
 		this.setState({ currentImage: uri });
 	};
 
-	handleAddToCart = () => {
-		console.log(this.state.product);
-		const { product } = this.state;
+	handleAddToCart = (attributes) => {
+		const attributeString = Object.entries(attributes).reduce(
+			(acc, [key, value]) => {
+				acc += `-${key}-${value}`;
+				return acc;
+			},
+			""
+		);
+		const uniqueId = `${this.state.product.id}${attributeString}`;
 		const { currency, addToCart } = this.props;
+		let product = {
+			uniqueId,
+			...this.state.product,
+			selectedAttributes: attributes,
+		};
 		addToCart({ product, currency });
 	};
 

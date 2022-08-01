@@ -2,15 +2,18 @@ import React, { Component } from "react";
 
 export class Attribute extends Component {
 	render() {
-		const { attribute, item } = this.props;
+		const { attribute, item, selected, onAttributeChange, isReadOnly } =
+			this.props;
 		return attribute.type === "swatch" ? (
 			<>
 				<input
 					type="radio"
-					name={attribute.name}
 					id={`${attribute.name}-${item.displayValue}`}
 					value={item.value}
-					onClick={(e) => console.log(e.target.value)}
+					checked={item.value === selected}
+					onChange={() =>
+						!isReadOnly && onAttributeChange({ [attribute.name]: item.value })
+					}
 				/>
 				<label
 					htmlFor={`${attribute.name}-${item.displayValue}`}
@@ -22,10 +25,12 @@ export class Attribute extends Component {
 			<>
 				<input
 					type="radio"
-					name={attribute.name}
 					id={`${attribute.name}-${item.displayValue}`}
 					value={item.value}
-					onClick={(e) => console.log(e.target.value)}
+					checked={item.value === selected}
+					onChange={() =>
+						!isReadOnly && onAttributeChange({ [attribute.name]: item.value })
+					}
 				/>
 				<label
 					htmlFor={`${attribute.name}-${item.displayValue}`}
