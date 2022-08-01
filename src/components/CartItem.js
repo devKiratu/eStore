@@ -1,29 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Attribute from "./Attribute";
-
 import ImageCarousel from "./ImageCarousel";
+import {
+	productCountIncremented,
+	productCountDecremented,
+} from "../store/cart";
 
 export class CartItem extends Component {
-	state = {
-		itemsCount: 1,
-	};
-
-	handleDecrement = () => {
-		this.setState({ itemsCount: this.state.itemsCount - 1 });
-	};
-
-	handleIncrement = () => {
-		this.setState({ itemsCount: this.state.itemsCount + 1 });
-	};
-
 	render() {
-		const { item, currency } = this.props;
+		const { item, currency, itemsCount, id, handleIncrement, handleDecrement } =
+			this.props;
 		const [currentPrice] = item.prices.filter(
 			(p) => p.currency.label === currency.label
 		);
 		return (
-			this.state.itemsCount > 0 && (
+			itemsCount > 0 && (
 				<>
 					<div className="cart-item">
 						<div className="cart-item-description">
@@ -41,11 +33,13 @@ export class CartItem extends Component {
 										{attribute.name}:
 									</p>
 									<div>
-										{attribute.items.map((item, index) => (
+										{attribute.items.map((val, index) => (
 											<Attribute
 												attribute={attribute}
-												item={item}
+												item={val}
 												key={index}
+												isReadOnly={true}
+												selected={item.selectedAttributes[attribute.name]}
 											/>
 										))}
 									</div>
@@ -56,14 +50,14 @@ export class CartItem extends Component {
 							<div className="buttons">
 								<button
 									className="cart-item-button"
-									onClick={this.handleIncrement}
+									onClick={() => handleIncrement({ id, currency })}
 								>
 									+
 								</button>
-								<p className="item-count">{this.state.itemsCount}</p>
+								<p className="item-count">{itemsCount}</p>
 								<button
 									className="cart-item-button"
-									onClick={this.handleDecrement}
+									onClick={() => handleDecrement({ id, currency })}
 								>
 									-
 								</button>
@@ -82,4 +76,9 @@ const mapStateToProps = (state) => ({
 	currency: state.app.activeCurrency,
 });
 
-export default connect(mapStateToProps)(CartItem);
+const mapDispatchToProps = (dispatch) => ({
+	handleIncrement: (updateObj) => dispatch(productCountIncremented(updateObj)),
+	handleDecrement: (updateObj) => dispatch(productCountDecremented(updateObj)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartItem);

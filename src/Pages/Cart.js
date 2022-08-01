@@ -4,18 +4,19 @@ import CartItem from "../components/CartItem";
 
 export class Cart extends Component {
 	render() {
-		console.log(this.props.products);
 		const { products, items, currency, totalPrice } = this.props;
 		return (
 			<>
 				<p className="cart-title">Cart</p>
 				<hr className="divider-line" />
 				{items <= 0 && <p>Cart is empty</p>}
-				{products.map((item, index) => {
+				{Object.entries(products).map(([key, value]) => {
 					return (
-						<div key={index}>
-							<CartItem item={item} />
-						</div>
+						value[0] && (
+							<div key={key}>
+								<CartItem item={value[0]} id={key} itemsCount={value.length} />
+							</div>
+						)
 					);
 				})}
 				{items > 0 && (
