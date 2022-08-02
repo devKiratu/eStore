@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import "./pdp.css";
+import "./styles/index.css";
+import "./styles/pdp.css";
+import "./styles/cart.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 

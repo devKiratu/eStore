@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import { gql } from "@apollo/client";
 import { Query } from "@apollo/client/react/components";
 import CurrencySwitcher from "./CurrencySwitcher";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../img/a-logo.svg";
-import cart from "../img/empty-cart.svg";
+import cartIcon from "../img/empty-cart.svg";
+import { connect } from "react-redux";
+import { activeCategorySet } from "../store/app";
 
 const LOAD_CATEGORIES = gql`
 	query GetCategories {
@@ -16,6 +18,7 @@ const LOAD_CATEGORIES = gql`
 
 export class Navbar extends Component {
 	render() {
+		const { items } = this.props;
 		return (
 			<div>
 				<div className="navbar">
@@ -43,15 +46,17 @@ export class Navbar extends Component {
 							alt={"logo"}
 							style={{ width: "32px", height: "auto" }}
 						/>
-						{/* <span className="nav-item">Logo</span> */}
 					</div>
 					<div>
-						<CurrencySwitcher
-							onCurrencyChange={this.props.onCurrencyChange}
-							currency={this.props.currency}
-						/>
-						<img style={{ marginLeft: "22px" }} src={cart} alt={"cart icon"} />
-						{/* <span className="nav-item">Cart</span> */}
+						<CurrencySwitcher />
+						<Link to="/cart" className="routing-link">
+							<img
+								style={{ marginLeft: "22px" }}
+								src={cartIcon}
+								alt={"cart icon"}
+							/>
+							{items > 0 && <span className="cart-items-count">{items}</span>}
+						</Link>
 					</div>
 				</div>
 			</div>
@@ -59,4 +64,12 @@ export class Navbar extends Component {
 	}
 }
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+	items: state.cart.totalItems,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	onCategoryChange: (name) => dispatch(activeCategorySet(name)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

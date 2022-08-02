@@ -3,10 +3,13 @@ import { withRouter } from "react-router-dom";
 import { gql } from "@apollo/client";
 import { Query } from "@apollo/client/react/components";
 import PdpDescriptions from "../components/PdpDescriptions";
+import { itemAdded } from "../store/cart";
+import { connect } from "react-redux";
 
 const LOAD_PRODUCT = gql`
 	query GetProduct($id: String!) {
 		product(id: $id) {
+			id
 			name
 			brand
 			inStock
@@ -35,17 +38,42 @@ const LOAD_PRODUCT = gql`
 export class ProductDescription extends Component {
 	state = {
 		currentImage: null,
+		product: null,
 	};
 
 	handleImageChange = (uri) => {
 		this.setState({ currentImage: uri });
 	};
 
+	handleAddToCart = (attributes) => {
+		const attributeString = Object.entries(attributes).reduce(
+			(acc, [key, value]) => {
+				acc += `-${key}-${value}`;
+				return acc;
+			},
+			""
+		);
+		const uniqueId = `${this.state.product.id}${attributeString}`;
+		const { currency, addToCart } = this.props;
+		let product = {
+			uniqueId,
+			...this.state.product,
+			selectedAttributes: attributes,
+		};
+		addToCart({ product, currency });
+	};
+
 	render() {
 		const { id } = this.props.match.params;
 		return (
 			<div className="pdp-container">
-				<Query query={LOAD_PRODUCT} variables={{ id }}>
+				<Query
+					query={LOAD_PRODUCT}
+					variables={{ id }}
+					onCompleted={(data) =>
+						this.setState({ ...this.state, product: data.product })
+					}
+				>
 					{({ loading, error, data }) => {
 						if (loading) return <span>fetching product...</span>;
 						if (error) return <span>something went wrong :(</span>;
@@ -60,7 +88,7 @@ export class ProductDescription extends Component {
 						} = data.product;
 
 						const [currentPrice] = prices.filter(
-							(p) => p.currency.label === this.props.currency
+							(p) => p.currency.label === this.props.currency.label
 						);
 						return (
 							<>
@@ -89,6 +117,7 @@ export class ProductDescription extends Component {
 									currentPrice={currentPrice}
 									inStock={inStock}
 									description={description}
+									onClick={this.handleAddToCart}
 								/>
 							</>
 						);
@@ -99,4 +128,14 @@ export class ProductDescription extends Component {
 	}
 }
 
-export default withRouter(ProductDescription);
+const mapStateToProps = (state) => ({
+	currency: state.app.activeCurrency,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	addToCart: (product) => dispatch(itemAdded(product)),
+});
+
+export default withRouter(
+	connect(mapStateToProps, mapDispatchToProps)(ProductDescription)
+);
