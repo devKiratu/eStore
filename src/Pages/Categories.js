@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ProductCard from "../components/ProductCard";
 import { gql } from "@apollo/client";
 import { Query } from "@apollo/client/react/components";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 const LOAD_ALL_PRODUCTS = gql`
@@ -12,6 +11,7 @@ const LOAD_ALL_PRODUCTS = gql`
 			products {
 				id
 				name
+				brand
 				inStock
 				category
 				gallery
@@ -20,6 +20,15 @@ const LOAD_ALL_PRODUCTS = gql`
 					currency {
 						label
 						symbol
+					}
+				}
+				attributes {
+					name
+					type
+					items {
+						displayValue
+						value
+						id
 					}
 				}
 			}
@@ -39,16 +48,8 @@ export class Categories extends Component {
 						{({ loading, error, data }) => {
 							if (loading) return <span>loading...</span>;
 							if (error) return <span>Something went wrong :(</span>;
-							// console.log(data);
 							return data.category.products.map((item) => (
-								<Link
-									className="routing-link"
-									to={`/products/${item.id}`}
-									key={item.id}
-									id={item.id}
-								>
-									<ProductCard product={item} key={item.id} id={item.id} />
-								</Link>
+								<ProductCard product={item} key={item.id} id={item.id} />
 							));
 						}}
 					</Query>
