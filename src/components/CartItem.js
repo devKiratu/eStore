@@ -40,6 +40,8 @@ export class CartItem extends Component {
 												key={index}
 												isReadOnly={true}
 												selected={item.selectedAttributes[attribute.name]}
+												typeSwatch={"attribute-type-swatch"}
+												typeText={"attribute-type-text"}
 											/>
 										))}
 									</div>

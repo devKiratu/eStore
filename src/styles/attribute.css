@@ -1,0 +1,89 @@
+/* Attribute component styling as consumed by PdpDescriptions.js, CartItem.js */
+
+.pdp-attribute-name {
+	text-transform: uppercase;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+input[type="radio"] {
+	display: none;
+}
+
+label.attribute-type-swatch {
+	box-sizing: content-box;
+	border: 0.009px solid gray;
+	width: 32px;
+	height: 32px;
+	margin: 8px 10px 36px 0;
+	display: inline-block;
+	cursor: pointer;
+}
+
+label.attribute-type-text {
+	border: 1px solid #1d1f22;
+	width: 63px;
+	height: 45px;
+	margin: 8px 12px 24px 0;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	font-family: "Source Sans Pro", sans-serif;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 18px;
+	letter-spacing: 0.05em;
+}
+
+input[type="radio"]:checked + label.attribute-type-text {
+	background-color: black;
+	color: white;
+}
+
+input[type="radio"]:checked + label.attribute-type-swatch {
+	outline: 2px solid #5ece7b;
+	outline-offset: 1px;
+}
+
+/* Attribute component styling as consumed by MiniCartItem.js */
+.minicart-attribute-name {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 16px;
+}
+
+label.minicart-type-swatch {
+	box-sizing: content-box;
+	border: 0.009px solid gray;
+	width: 16px;
+	height: 16px;
+	margin: 8px 5px 8px 3px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+label.minicart-type-text {
+	border: 1px solid #1d1f22;
+	min-width: 24px;
+	min-height: 24px;
+	margin: 8px 8px 8px 0;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	font-family: "Source Sans Pro", sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 22px;
+}
+
+input[type="radio"]:checked + label.minicart-type-text {
+	background-color: black;
+	color: white;
+}
+
+input[type="radio"]:checked + label.minicart-type-swatch {
+	outline: 2px solid #5ece7b;
+	outline-offset: 1px;
+}

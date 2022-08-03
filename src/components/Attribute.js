@@ -2,8 +2,15 @@ import React, { Component } from "react";
 
 export class Attribute extends Component {
 	render() {
-		const { attribute, item, selected, onAttributeChange, isReadOnly } =
-			this.props;
+		const {
+			attribute,
+			item,
+			selected,
+			onAttributeChange,
+			isReadOnly,
+			typeSwatch,
+			typeText,
+		} = this.props;
 		return attribute.type === "swatch" ? (
 			<>
 				<input
@@ -17,7 +24,7 @@ export class Attribute extends Component {
 				/>
 				<label
 					htmlFor={`${attribute.name}-${item.displayValue}`}
-					className="attribute-type-swatch"
+					className={typeSwatch}
 					style={{ backgroundColor: `${item.value}` }}
 				></label>
 			</>
@@ -34,7 +41,7 @@ export class Attribute extends Component {
 				/>
 				<label
 					htmlFor={`${attribute.name}-${item.displayValue}`}
-					className="attribute-type-text"
+					className={typeText}
 				>
 					{item.value}
 				</label>

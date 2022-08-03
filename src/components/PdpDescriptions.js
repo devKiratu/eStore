@@ -51,6 +51,8 @@ export class PdpDescriptions extends Component {
 									key={index}
 									selected={this.state.selectedAttributes[attribute.name]}
 									onAttributeChange={this.handleAttributeChange}
+									typeSwatch={"attribute-type-swatch"}
+									typeText={"attribute-type-text"}
 								/>
 							))}
 						</div>
