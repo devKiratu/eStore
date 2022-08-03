@@ -22,7 +22,6 @@
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	/* border: 1px solid gray; */
 }
 
 .cart-item-right {
@@ -33,7 +32,6 @@
 }
 
 .cart-item-images {
-	border: 1px solid rebeccapurple;
 	position: relative;
 }
 
@@ -62,7 +60,6 @@
 }
 
 .carousel-buttons {
-	/* border: 1px solid crimson; */
 	display: flex;
 	width: fit-content;
 	z-index: 99;
@@ -80,12 +77,10 @@
 	height: 24px;
 	margin-right: 8px;
 	cursor: pointer;
-	/* border: 1px solid yellow; */
 }
 
 .order-button {
 	width: 279px;
-	/* height: 43px; */
 	background: #5ece7b;
 	padding: 16px 32px;
 	font-weight: 600;

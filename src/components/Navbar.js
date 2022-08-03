@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { gql } from "@apollo/client";
 import { Query } from "@apollo/client/react/components";
 import CurrencySwitcher from "./CurrencySwitcher";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import logo from "../img/a-logo.svg";
 import cartIcon from "../img/empty-cart.svg";
 import { connect } from "react-redux";
-import { activeCategorySet } from "../store/app";
+import { activeCategorySet, minicartToggled } from "../store/app";
 
 const LOAD_CATEGORIES = gql`
 	query GetCategories {
@@ -18,7 +18,7 @@ const LOAD_CATEGORIES = gql`
 
 export class Navbar extends Component {
 	render() {
-		const { items } = this.props;
+		const { items, toggleMinicart } = this.props;
 		return (
 			<div>
 				<div className="navbar">
@@ -49,14 +49,13 @@ export class Navbar extends Component {
 					</div>
 					<div>
 						<CurrencySwitcher />
-						<Link to="/cart" className="routing-link">
-							<img
-								style={{ marginLeft: "22px" }}
-								src={cartIcon}
-								alt={"cart icon"}
-							/>
-							{items > 0 && <span className="cart-items-count">{items}</span>}
-						</Link>
+						<img
+							style={{ marginLeft: "22px", cursor: "pointer" }}
+							src={cartIcon}
+							alt={"cart icon"}
+							onClick={() => toggleMinicart()}
+						/>
+						{items > 0 && <span className="cart-items-count">{items}</span>}
 					</div>
 				</div>
 			</div>
@@ -70,6 +69,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
 	onCategoryChange: (name) => dispatch(activeCategorySet(name)),
+	toggleMinicart: () => dispatch(minicartToggled()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
