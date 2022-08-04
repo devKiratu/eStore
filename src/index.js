@@ -5,6 +5,7 @@ import "./styles/index.css";
 import "./styles/pdp.css";
 import "./styles/cart.css";
 import "./styles/mini-cart.css";
+import "./styles/navbar.css";
 import App from "./App";
 import store from "./store";
 

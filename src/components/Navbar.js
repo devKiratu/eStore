@@ -20,9 +20,9 @@ export class Navbar extends Component {
 	render() {
 		const { items, toggleMinicart } = this.props;
 		return (
-			<div>
+			<div className="navbar-container">
 				<div className="navbar">
-					<div>
+					<div className="nav-left">
 						<Query query={LOAD_CATEGORIES}>
 							{({ loading, error, data }) => {
 								if (loading) return <span>fetching categories ...</span>;
@@ -40,14 +40,14 @@ export class Navbar extends Component {
 							}}
 						</Query>
 					</div>
-					<div>
+					<div className="nav-center">
 						<img
 							src={logo}
 							alt={"logo"}
 							style={{ width: "32px", height: "auto" }}
 						/>
 					</div>
-					<div>
+					<div className="nav-right">
 						<CurrencySwitcher />
 						<img
 							style={{ marginLeft: "22px", cursor: "pointer" }}
