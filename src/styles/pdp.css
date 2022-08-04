@@ -76,8 +76,8 @@
 	cursor: not-allowed;
 }
 
-div.pdp-innerhtml,
-div.pdp-innerhtml * {
+.pdp-innerhtml,
+.pdp-innerhtml * {
 	font-family: "Roboto", sans-serif;
 	font-size: 16px;
 	line-height: 26px;

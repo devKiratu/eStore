@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Attribute from "./Attribute";
+import { Interweave } from "interweave";
 
 export class PdpDescriptions extends Component {
 	state = {
@@ -69,10 +70,8 @@ export class PdpDescriptions extends Component {
 				>
 					Add to cart
 				</button>
-				<div
-					className="pdp-innerhtml"
-					dangerouslySetInnerHTML={{ __html: description }}
-				/>
+				<div />
+				<Interweave content={description} className="pdp-innerhtml" />
 			</div>
 		);
 	}
