@@ -51,6 +51,9 @@
 	line-height: 160%;
 	font-weight: 500;
 	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .item-count {
