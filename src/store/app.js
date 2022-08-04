@@ -1,24 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { loadState, updateLocalStorage } from "./localStorage";
+
+const initialState = loadState("app") ?? {
+	activeCategory: "all",
+	activeCurrency: {
+		label: "USD",
+		symbol: "$",
+	},
+	isMinicartOpen: false,
+};
 
 const appSlice = createSlice({
 	name: "app",
-	initialState: {
-		activeCategory: "all",
-		activeCurrency: {
-			label: "USD",
-			symbol: "$",
-		},
-		isMinicartOpen: false,
-	},
+	initialState,
 	reducers: {
 		activeCategorySet: (state, action) => {
 			state.activeCategory = action.payload;
+			updateLocalStorage("app", state);
 		},
 		activeCurrencySet: (state, action) => {
 			state.activeCurrency = action.payload;
+			updateLocalStorage("app", state);
 		},
 		minicartToggled: (state) => {
 			state.isMinicartOpen = !state.isMinicartOpen;
+			updateLocalStorage("app", state);
 		},
 	},
 });
