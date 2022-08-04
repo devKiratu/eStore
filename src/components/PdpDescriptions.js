@@ -8,7 +8,7 @@ export class PdpDescriptions extends Component {
 	};
 
 	componentDidMount() {
-		this.props.attributes.forEach((a) => {
+		this.props.product.attributes.forEach((a) => {
 			this.setState((prevState) => ({
 				selectedAttributes: {
 					...prevState.selectedAttributes,
@@ -33,8 +33,9 @@ export class PdpDescriptions extends Component {
 	};
 
 	render() {
-		const { attributes, brand, name, currentPrice, inStock, description } =
-			this.props;
+		const { attributes, brand, name, inStock, description } =
+			this.props.product;
+		const { currentPrice } = this.props;
 		return (
 			<div className="pdp-descriptions">
 				<p className="brand-name">{brand}</p>
@@ -66,7 +67,12 @@ export class PdpDescriptions extends Component {
 				<button
 					className="pdp-add-button"
 					disabled={!inStock}
-					onClick={() => this.props.onClick(this.state.selectedAttributes)}
+					onClick={() =>
+						this.props.onClick(
+							this.props.product,
+							this.state.selectedAttributes
+						)
+					}
 				>
 					Add to cart
 				</button>
