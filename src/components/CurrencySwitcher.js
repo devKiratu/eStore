@@ -4,7 +4,7 @@ import { Query } from "@apollo/client/react/components";
 import arrowup from "../img/arrow-up.svg";
 import arrowdown from "../img/arrow-down.svg";
 import { connect } from "react-redux";
-import { activeCurrencySet } from "../store/app";
+import { activeCurrencySet, currencyListToggled } from "../store/app";
 import { pricesUpdated } from "../store/cart";
 
 const LOAD_CURRENCIES = gql`
@@ -17,29 +17,23 @@ const LOAD_CURRENCIES = gql`
 `;
 
 export class CurrencySwitcher extends Component {
-	state = {
-		isOpen: false,
-	};
-
-	toggleCurrencyList = () => {
-		this.setState({ isOpen: !this.state.isOpen });
-	};
-
 	handleCurrencyChange = (currency) => {
-		this.setState({
-			isOpen: !this.state.isOpen,
-		});
+		this.props.toggleCurrencyList();
 		this.props.onCurrencyChange(currency);
 		this.props.updatePrices(currency);
 	};
+
 	render() {
 		return (
 			<>
-				<span className="currency-switcher" onClick={this.toggleCurrencyList}>
+				<span
+					className="currency-switcher"
+					onClick={this.props.toggleCurrencyList}
+				>
 					{this.props.currency.symbol} &nbsp; &nbsp;
 					<img
-						src={this.state.isOpen ? arrowup : arrowdown}
-						alt={this.state.isOpen ? "close list icon" : "open list icon"}
+						src={this.props.isOpen ? arrowup : arrowdown}
+						alt={this.props.isOpen ? "close list icon" : "open list icon"}
 					/>
 				</span>
 				<Query query={LOAD_CURRENCIES}>
@@ -47,7 +41,7 @@ export class CurrencySwitcher extends Component {
 						if (loading) return <span>loading...</span>;
 						if (error) return <span>Something went wrong :(</span>;
 						return (
-							this.state.isOpen && (
+							this.props.isOpen && (
 								<ul className="currency-list">
 									{data.currencies.map((c) => (
 										<li
@@ -71,11 +65,13 @@ export class CurrencySwitcher extends Component {
 
 const mapStateToProps = (state) => ({
 	currency: state.app.activeCurrency,
+	isOpen: state.app.isCurrencyListOpen,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	onCurrencyChange: (currency) => dispatch(activeCurrencySet(currency)),
 	updatePrices: (currency) => dispatch(pricesUpdated(currency)),
+	toggleCurrencyList: () => dispatch(currencyListToggled()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrencySwitcher);

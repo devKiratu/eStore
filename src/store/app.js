@@ -8,6 +8,7 @@ const initialState = loadState("app") ?? {
 		symbol: "$",
 	},
 	isMinicartOpen: false,
+	isCurrencyListOpen: false,
 };
 
 const appSlice = createSlice({
@@ -26,9 +27,20 @@ const appSlice = createSlice({
 			state.isMinicartOpen = !state.isMinicartOpen;
 			updateLocalStorage("app", state);
 		},
+		currencyListToggled: (state) => {
+			state.isCurrencyListOpen = !state.isCurrencyListOpen;
+		},
+		closeCurrencyList: (state) => {
+			state.isCurrencyListOpen = false;
+		},
 	},
 });
 
-export const { activeCategorySet, activeCurrencySet, minicartToggled } =
-	appSlice.actions;
+export const {
+	activeCategorySet,
+	activeCurrencySet,
+	minicartToggled,
+	currencyListToggled,
+	closeCurrencyList,
+} = appSlice.actions;
 export default appSlice.reducer;
