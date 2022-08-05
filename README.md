@@ -1,6 +1,6 @@
 # Store Front
 
-UI for the Scandiweb React Develeper Entry Test.  
+UI for the Scandiweb React Developer Entry Test.  
 This project was created using `create-react-app` and consumes a custom `graphql` endpoint using an `apollo client`
 
 ## Run the project
