@@ -4,8 +4,13 @@ import CartItem from "../components/CartItem";
 import { cartItemsOrdered } from "../store/cart";
 
 export class Cart extends Component {
+	handlePlaceOrder = () => {
+		this.props.placeOrder();
+		this.props.history.push("/");
+	};
+
 	render() {
-		const { products, items, currency, totalPrice, placeOrder } = this.props;
+		const { products, items, currency, totalPrice } = this.props;
 		return (
 			<>
 				<p className="cart-title">Cart</p>
@@ -42,7 +47,7 @@ export class Cart extends Component {
 								</strong>
 							</p>
 						</div>
-						<button className="order-button" onClick={() => placeOrder()}>
+						<button className="order-button" onClick={this.handlePlaceOrder}>
 							Order
 						</button>
 					</>
