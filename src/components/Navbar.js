@@ -18,7 +18,7 @@ const LOAD_CATEGORIES = gql`
 
 export class Navbar extends Component {
 	render() {
-		const { items, toggleMinicart } = this.props;
+		const { items, toggleMinicart, activeCategory } = this.props;
 		return (
 			<div className="navbar-container">
 				<div className="navbar">
@@ -30,7 +30,9 @@ export class Navbar extends Component {
 								return data.categories.map((category, index) => (
 									<NavLink
 										to={"/"}
-										className={`nav-item`}
+										className={`nav-item ${
+											category.name === activeCategory && "current"
+										}`}
 										key={index}
 										onClick={() => this.props.onCategoryChange(category.name)}
 									>
@@ -65,6 +67,7 @@ export class Navbar extends Component {
 
 const mapStateToProps = (state) => ({
 	items: state.cart.totalItems,
+	activeCategory: state.app.activeCategory,
 });
 
 const mapDispatchToProps = (dispatch) => ({

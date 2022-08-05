@@ -34,11 +34,11 @@
 }
 .nav-item:hover {
 	color: #5ece7b;
-	font-weight: 600;
 }
 
 .nav-item:active,
-.nav-item:focus {
+.nav-item:focus,
+.current {
 	color: #5ece7b;
 	font-weight: 600;
 	border-bottom: 2px solid #5ece7b;
