@@ -17,6 +17,29 @@ const LOAD_CURRENCIES = gql`
 `;
 
 export class CurrencySwitcher extends Component {
+	constructor(props) {
+		super(props);
+		this.ref = React.createRef();
+	}
+
+	componentDidMount() {
+		document.addEventListener("click", this.handleClickOutside);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener("click", this.handleClickOutside);
+	}
+
+	handleClickOutside = (e) => {
+		if (
+			this.props.isOpen &&
+			this.ref.current &&
+			!this.ref.current.contains(e.target)
+		) {
+			this.props.toggleCurrencyList();
+		}
+	};
+
 	handleCurrencyChange = (currency) => {
 		this.props.toggleCurrencyList();
 		this.props.onCurrencyChange(currency);
@@ -25,7 +48,7 @@ export class CurrencySwitcher extends Component {
 
 	render() {
 		return (
-			<>
+			<div style={{ display: "inline-block" }} ref={this.ref}>
 				<span
 					className="currency-switcher"
 					onClick={this.props.toggleCurrencyList}
@@ -58,7 +81,7 @@ export class CurrencySwitcher extends Component {
 						);
 					}}
 				</Query>
-			</>
+			</div>
 		);
 	}
 }
