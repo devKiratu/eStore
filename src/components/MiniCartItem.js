@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import plus from "../img/plus-sign-8px.svg";
+import minus from "../img/minus-sign-8px.svg";
 import {
 	productCountDecremented,
 	productCountIncremented,
@@ -45,9 +47,13 @@ export class MiniCartItem extends Component {
 						))}
 					</div>
 					<div className="quantity-change-buttons">
-						<button onClick={() => handleIncrement({ id, currency })}>+</button>
+						<button onClick={() => handleIncrement({ id, currency })}>
+							<img src={plus} alt="+" />
+						</button>
 						<p>{itemsCount}</p>
-						<button onClick={() => handleDecrement({ id, currency })}>-</button>
+						<button onClick={() => handleDecrement({ id, currency })}>
+							<img src={minus} alt="-" />
+						</button>
 					</div>
 				</div>
 				<div className="minicart-image-container">

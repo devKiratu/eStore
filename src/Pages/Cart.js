@@ -1,8 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import CartItem from "../components/CartItem";
+import { cartItemsOrdered } from "../store/cart";
 
 export class Cart extends Component {
+	handlePlaceOrder = () => {
+		this.props.placeOrder();
+		this.props.history.push("/");
+	};
+
 	render() {
 		const { products, items, currency, totalPrice } = this.props;
 		return (
@@ -41,7 +47,9 @@ export class Cart extends Component {
 								</strong>
 							</p>
 						</div>
-						<button className="order-button">Order</button>
+						<button className="order-button" onClick={this.handlePlaceOrder}>
+							Order
+						</button>
 					</>
 				)}
 			</>
@@ -55,4 +63,9 @@ const mapStateToProps = (state) => ({
 	totalPrice: state.cart.totalPrice,
 	currency: state.app.activeCurrency,
 });
-export default connect(mapStateToProps)(Cart);
+
+const mapDispatchToProps = (dispatch) => ({
+	placeOrder: () => dispatch(cartItemsOrdered()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

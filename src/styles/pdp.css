@@ -60,6 +60,7 @@
 .pdp-add-button {
 	background-color: #5ece7b;
 	padding: 16px 32px;
+	width: 292px;
 	text-align: center;
 	outline: none;
 	border: none;
@@ -76,8 +77,8 @@
 	cursor: not-allowed;
 }
 
-div.pdp-innerhtml,
-div.pdp-innerhtml * {
+.pdp-innerhtml,
+.pdp-innerhtml * {
 	font-family: "Roboto", sans-serif;
 	font-size: 16px;
 	line-height: 26px;

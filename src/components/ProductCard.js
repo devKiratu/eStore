@@ -82,7 +82,7 @@ export class ProductCard extends Component {
 								!product.inStock && "out-of-stock-text"
 							}`}
 						>
-							{product.name}
+							{`${product.brand} ${product.name}`}
 						</p>
 						<p
 							className={`product-price ${

@@ -37,6 +37,10 @@ const LOAD_ALL_PRODUCTS = gql`
 `;
 
 export class Categories extends Component {
+	componentDidMount() {
+		window.scrollTo(0, 0);
+	}
+
 	render() {
 		const { category } = this.props;
 

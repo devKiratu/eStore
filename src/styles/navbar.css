@@ -1,0 +1,95 @@
+/* Nav Bar */
+
+.navbar-container {
+	position: sticky;
+	top: 0;
+	z-index: 300;
+	background-color: #ffffff;
+}
+
+.navbar {
+	width: 90%;
+	margin: 0 auto;
+	padding: 20px 0;
+	display: grid;
+	grid-template-columns: 3fr 1fr 3fr;
+	gap: 0;
+	z-index: 300;
+}
+
+.nav-center {
+	text-align: center;
+}
+.nav-right {
+	text-align: right;
+}
+
+.nav-item {
+	padding: 28px 16px 32px 16px;
+	text-transform: uppercase;
+	font-weight: 400;
+	text-decoration: none;
+	font-size: 16px;
+	line-height: 19px;
+}
+.nav-item:hover {
+	color: #5ece7b;
+}
+
+.nav-item:active,
+.nav-item:focus,
+.current {
+	color: #5ece7b;
+	font-weight: 600;
+	border-bottom: 2px solid #5ece7b;
+}
+
+.currency-switcher {
+	border: none;
+	background-color: inherit;
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 29px;
+	cursor: pointer;
+}
+
+.currency-list {
+	list-style: none;
+	width: max-content;
+	background-color: #ffffff;
+	position: fixed;
+	top: 50px;
+	right: 65px;
+	text-align: left;
+	z-index: 300;
+	box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+}
+
+.list-item {
+	padding: 10px 20px;
+	cursor: pointer;
+	font-weight: 500;
+	font-size: 18px;
+}
+
+.list-item:hover {
+	background-color: #eeeeee;
+}
+
+.cart-items-count {
+	position: absolute;
+	top: 15%;
+	right: 4%;
+	width: 20px;
+	height: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	color: white;
+	background-color: #1d1f22;
+	font-family: "Roboto", sans-serif;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 16px;
+}

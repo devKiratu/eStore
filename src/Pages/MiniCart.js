@@ -3,8 +3,15 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import MiniCartItem from "../components/MiniCartItem";
 import { minicartToggled } from "../store/app";
+import { cartItemsOrdered } from "../store/cart";
 
 export class MiniCart extends Component {
+	handleCheckout = () => {
+		const { placeOrder, toggleMinicart } = this.props;
+		placeOrder();
+		toggleMinicart();
+	};
+
 	render() {
 		const { itemsCount, totalPrice, currency, products, toggleMinicart } =
 			this.props;
@@ -45,7 +52,9 @@ export class MiniCart extends Component {
 								view bag
 							</button>
 						</Link>
-						<button className="checkout-button">check out</button>
+						<button className="checkout-button" onClick={this.handleCheckout}>
+							check out
+						</button>
 					</div>
 				</div>
 			</div>
@@ -62,6 +71,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
 	toggleMinicart: () => dispatch(minicartToggled()),
+	placeOrder: () => dispatch(cartItemsOrdered()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MiniCart);

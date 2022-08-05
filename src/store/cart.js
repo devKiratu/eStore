@@ -1,12 +1,16 @@
 import { createSlice, current } from "@reduxjs/toolkit";
+import { loadState, updateLocalStorage, clearCart } from "./localStorage";
+
+const defaultState = {
+	products: {},
+	totalItems: 0,
+	totalPrice: 0,
+};
+const initialState = loadState("cart") ?? defaultState;
 
 const slice = createSlice({
 	name: "cart",
-	initialState: {
-		products: {},
-		totalItems: 0,
-		totalPrice: 0,
-	},
+	initialState,
 	reducers: {
 		itemAdded: (cart, action) => {
 			const { currency, product } = action.payload;
@@ -17,9 +21,11 @@ const slice = createSlice({
 			}
 			updateTotals(cart);
 			updatePrices(cart, currency);
+			updateLocalStorage("cart", cart);
 		},
 		pricesUpdated: (cart, action) => {
 			updatePrices(cart, action.payload);
+			updateLocalStorage("cart", cart);
 		},
 
 		productCountIncremented: (cart, action) => {
@@ -27,6 +33,7 @@ const slice = createSlice({
 			productArray.push(productArray[0]);
 			updateTotals(cart);
 			updatePrices(cart, action.payload.currency);
+			updateLocalStorage("cart", cart);
 		},
 
 		productCountDecremented: (cart, action) => {
@@ -34,6 +41,11 @@ const slice = createSlice({
 			productArray.pop();
 			updateTotals(cart);
 			updatePrices(cart, action.payload.currency);
+			updateLocalStorage("cart", cart);
+		},
+		cartItemsOrdered: (cart) => {
+			clearCart();
+			Object.assign(cart, defaultState);
 		},
 	},
 });
@@ -69,5 +81,6 @@ export const {
 	pricesUpdated,
 	productCountIncremented,
 	productCountDecremented,
+	cartItemsOrdered,
 } = slice.actions;
 export default slice.reducer;

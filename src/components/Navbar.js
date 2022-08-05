@@ -18,11 +18,11 @@ const LOAD_CATEGORIES = gql`
 
 export class Navbar extends Component {
 	render() {
-		const { items, toggleMinicart } = this.props;
+		const { items, toggleMinicart, activeCategory } = this.props;
 		return (
-			<div>
+			<div className="navbar-container">
 				<div className="navbar">
-					<div>
+					<div className="nav-left">
 						<Query query={LOAD_CATEGORIES}>
 							{({ loading, error, data }) => {
 								if (loading) return <span>fetching categories ...</span>;
@@ -30,7 +30,9 @@ export class Navbar extends Component {
 								return data.categories.map((category, index) => (
 									<NavLink
 										to={"/"}
-										className={`nav-item`}
+										className={`nav-item ${
+											category.name === activeCategory && "current"
+										}`}
 										key={index}
 										onClick={() => this.props.onCategoryChange(category.name)}
 									>
@@ -40,14 +42,14 @@ export class Navbar extends Component {
 							}}
 						</Query>
 					</div>
-					<div>
+					<div className="nav-center">
 						<img
 							src={logo}
 							alt={"logo"}
 							style={{ width: "32px", height: "auto" }}
 						/>
 					</div>
-					<div>
+					<div className="nav-right">
 						<CurrencySwitcher />
 						<img
 							style={{ marginLeft: "22px", cursor: "pointer" }}
@@ -65,6 +67,7 @@ export class Navbar extends Component {
 
 const mapStateToProps = (state) => ({
 	items: state.cart.totalItems,
+	activeCategory: state.app.activeCategory,
 });
 
 const mapDispatchToProps = (dispatch) => ({

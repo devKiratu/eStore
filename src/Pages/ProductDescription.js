@@ -38,14 +38,13 @@ const LOAD_PRODUCT = gql`
 export class ProductDescription extends Component {
 	state = {
 		currentImage: null,
-		product: null,
 	};
 
 	handleImageChange = (uri) => {
 		this.setState({ currentImage: uri });
 	};
 
-	handleAddToCart = (attributes) => {
+	handleAddToCart = (item, attributes) => {
 		const attributeString = Object.entries(attributes).reduce(
 			(acc, [key, value]) => {
 				acc += `-${key}-${value}`;
@@ -53,11 +52,11 @@ export class ProductDescription extends Component {
 			},
 			""
 		);
-		const uniqueId = `${this.state.product.id}${attributeString}`;
+		const uniqueId = `${item.id}${attributeString}`;
 		const { currency, addToCart } = this.props;
 		let product = {
 			uniqueId,
-			...this.state.product,
+			...item,
 			selectedAttributes: attributes,
 		};
 		addToCart({ product, currency });
@@ -67,28 +66,15 @@ export class ProductDescription extends Component {
 		const { id } = this.props.match.params;
 		return (
 			<div className="pdp-container">
-				<Query
-					query={LOAD_PRODUCT}
-					variables={{ id }}
-					onCompleted={(data) =>
-						this.setState({ ...this.state, product: data.product })
-					}
-				>
+				<Query query={LOAD_PRODUCT} variables={{ id }}>
 					{({ loading, error, data }) => {
 						if (loading) return <span>fetching product...</span>;
 						if (error) return <span>something went wrong :(</span>;
-						const {
-							name,
-							brand,
-							inStock,
-							gallery,
-							attributes,
-							description,
-							prices,
-						} = data.product;
+						const { product } = data;
+						const { name, gallery, prices } = product;
 
 						const [currentPrice] = prices.filter(
-							(p) => p.currency.label === this.props.currency.label
+							(price) => price.currency.label === this.props.currency.label
 						);
 						return (
 							<>
@@ -111,12 +97,8 @@ export class ProductDescription extends Component {
 									/>
 								</div>
 								<PdpDescriptions
-									attributes={attributes}
-									brand={brand}
-									name={name}
 									currentPrice={currentPrice}
-									inStock={inStock}
-									description={description}
+									product={product}
 									onClick={this.handleAddToCart}
 								/>
 							</>
