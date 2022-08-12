@@ -3,6 +3,7 @@ import ProductCard from "../components/ProductCard";
 import { gql } from "@apollo/client";
 import { Query } from "@apollo/client/react/components";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 const LOAD_ALL_PRODUCTS = gql`
 	query GetAllProducts($title: String!) {
@@ -53,7 +54,13 @@ export class Categories extends Component {
 							if (loading) return <span>loading...</span>;
 							if (error) return <span>Something went wrong :(</span>;
 							return data.category.products.map((item) => (
-								<ProductCard product={item} key={item.id} id={item.id} />
+								<Link
+									to={`products/${item.id}`}
+									key={item.id}
+									className="routing-link"
+								>
+									<ProductCard product={item} id={item.id} />
+								</Link>
 							));
 						}}
 					</Query>
