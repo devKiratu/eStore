@@ -8,6 +8,10 @@
 	z-index: 199;
 }
 
+.minicart-title {
+	margin-bottom: 32px;
+}
+
 .minicart-content {
 	position: absolute;
 	min-width: 325px;

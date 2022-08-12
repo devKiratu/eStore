@@ -24,6 +24,16 @@
 	text-align: right;
 }
 
+.logo {
+	width: 32px;
+	height: auto;
+}
+
+.nav-cart {
+	margin-left: 22px;
+	cursor: pointer;
+}
+
 .nav-item {
 	padding: 28px 16px 32px 16px;
 	text-transform: uppercase;
@@ -42,6 +52,10 @@
 	color: #5ece7b;
 	font-weight: 600;
 	border-bottom: 2px solid #5ece7b;
+}
+
+.currency-switcher-container {
+	display: inline-block;
 }
 
 .currency-switcher {

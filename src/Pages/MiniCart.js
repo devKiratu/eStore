@@ -42,7 +42,7 @@ export class MiniCart extends Component {
 		return (
 			<div className="minicart-bg">
 				<div className="minicart-content" ref={this.ref}>
-					<p style={{ marginBottom: "32px" }}>
+					<p className="minicart-title">
 						<strong>My Bag</strong>, {itemsCount} items
 					</p>
 					<div className="minicart-items-container">

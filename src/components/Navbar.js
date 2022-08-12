@@ -43,16 +43,12 @@ export class Navbar extends Component {
 						</Query>
 					</div>
 					<div className="nav-center">
-						<img
-							src={logo}
-							alt={"logo"}
-							style={{ width: "32px", height: "auto" }}
-						/>
+						<img src={logo} alt={"logo"} className="logo" />
 					</div>
 					<div className="nav-right">
 						<CurrencySwitcher />
 						<img
-							style={{ marginLeft: "22px", cursor: "pointer" }}
+							className="nav-cart"
 							src={cartIcon}
 							alt={"cart icon"}
 							onClick={() => toggleMinicart()}

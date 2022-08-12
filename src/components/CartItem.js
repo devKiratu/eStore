@@ -22,9 +22,7 @@ export class CartItem extends Component {
 					<div className="cart-item">
 						<div className="cart-item-description">
 							<p className="brand-name">{item.brand}</p>
-							<p className="pdp-product-name" style={{ paddingBottom: "10px" }}>
-								{item.name}
-							</p>
+							<p className="pdp-product-name pb-10">{item.name}</p>
 							<p className="pdp-price-details">
 								{currentPrice.currency.symbol}
 								{currentPrice.amount}
