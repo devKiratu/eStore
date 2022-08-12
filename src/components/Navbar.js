@@ -56,6 +56,7 @@ export class Navbar extends Component {
 							src={cartIcon}
 							alt={"cart icon"}
 							onClick={() => toggleMinicart()}
+							id="nav-cart-icon"
 						/>
 						{items > 0 && <span className="cart-items-count">{items}</span>}
 					</div>

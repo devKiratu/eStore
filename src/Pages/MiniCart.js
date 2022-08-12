@@ -6,6 +6,30 @@ import { minicartToggled } from "../store/app";
 import { cartItemsOrdered } from "../store/cart";
 
 export class MiniCart extends Component {
+	constructor(props) {
+		super(props);
+		this.ref = React.createRef();
+	}
+
+	componentDidMount() {
+		document.addEventListener("click", this.handleClickOutside);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener("click", this.handleClickOutside);
+	}
+
+	handleClickOutside = (e) => {
+		if (
+			this.props.isOpen &&
+			this.ref.current &&
+			e.target.id !== "nav-cart-icon" &&
+			!this.ref.current.contains(e.target)
+		) {
+			this.props.toggleMinicart();
+		}
+	};
+
 	handleCheckout = () => {
 		const { placeOrder, toggleMinicart } = this.props;
 		placeOrder();
@@ -17,7 +41,7 @@ export class MiniCart extends Component {
 			this.props;
 		return (
 			<div className="minicart-bg">
-				<div className="minicart-content">
+				<div className="minicart-content" ref={this.ref}>
 					<p style={{ marginBottom: "32px" }}>
 						<strong>My Bag</strong>, {itemsCount} items
 					</p>
@@ -64,6 +88,7 @@ export class MiniCart extends Component {
 
 const mapStateToProps = (state) => ({
 	currency: state.app.activeCurrency,
+	isOpen: state.app.isMinicartOpen,
 	itemsCount: state.cart.totalItems,
 	totalPrice: state.cart.totalPrice,
 	products: state.cart.products,
