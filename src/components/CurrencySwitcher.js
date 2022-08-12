@@ -48,7 +48,7 @@ export class CurrencySwitcher extends Component {
 
 	render() {
 		return (
-			<div style={{ display: "inline-block" }} ref={this.ref}>
+			<div className="currency-switcher-container" ref={this.ref}>
 				<span
 					className="currency-switcher"
 					onClick={this.props.toggleCurrencyList}

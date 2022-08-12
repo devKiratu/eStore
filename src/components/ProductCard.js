@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import cart from "../img/Vectorwhite-cart.svg";
 import { connect } from "react-redux";
 import { itemAdded } from "../store/cart";
-import { Link } from "react-router-dom";
 
 export class ProductCard extends Component {
 	state = {
@@ -76,23 +75,21 @@ export class ProductCard extends Component {
 							</span>
 						)}
 					</div>
-					<Link to={`products/${this.props.id}`} className="routing-link">
-						<p
-							className={`product-name ${
-								!product.inStock && "out-of-stock-text"
-							}`}
-						>
-							{`${product.brand} ${product.name}`}
-						</p>
-						<p
-							className={`product-price ${
-								!product.inStock && "out-of-stock-text"
-							}`}
-						>
-							{currentPrice.currency.symbol}
-							{currentPrice.amount}
-						</p>
-					</Link>
+					<p
+						className={`product-name ${
+							!product.inStock && "out-of-stock-text"
+						}`}
+					>
+						{`${product.brand} ${product.name}`}
+					</p>
+					<p
+						className={`product-price ${
+							!product.inStock && "out-of-stock-text"
+						}`}
+					>
+						{currentPrice.currency.symbol}
+						{currentPrice.amount}
+					</p>
 				</div>
 			</div>
 		);
