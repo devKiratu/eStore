@@ -1,15 +1,20 @@
-# Store Front
+# eStore
 
-UI for the Scandiweb React Developer Entry Test.  
+UI for the Scandiweb React Developer take home project.  
 This project was created using `create-react-app` and consumes a custom `graphql` endpoint using an `apollo client`
 
 ## Run the project
 
 To run this project locally:
 
+**Frontend**
 > - Clone this repository
 > - Run `npm install` to install the dependencies
 > - Run `npm start` to start the project. It should open on `localhost:3000`
+
+**Backend**
+> - Clone [this repository](https://github.com/scandiweb/junior-react-endpoint) and follow the instructions to run it locally
+> 
 
 ## Resources used
 
