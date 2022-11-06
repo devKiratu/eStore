@@ -1,6 +1,6 @@
 # eStore
 
-UI for the Scandiweb React Developer take home project.  
+UI for an e-commerce store.   
 This project was created using `create-react-app` and consumes a custom `graphql` endpoint using an `apollo client`
 
 ## Run the project
