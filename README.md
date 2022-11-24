@@ -13,5 +13,5 @@ To run this project locally:
 - Run `npm install` to install the dependencies
 - Run `npm start` to start the project. It should open on `localhost:3000`
 
-**Backend**
+**Backend**   
 You can interact with the project's backend, a graphql server, [here](https://estore.onrender.com)
