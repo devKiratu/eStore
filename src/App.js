@@ -9,31 +9,31 @@ import { connect } from "react-redux";
 import MiniCart from "./Pages/MiniCart";
 
 const client = new ApolloClient({
-	cache: new InMemoryCache(),
-	uri: "http://localhost:4000",
+  cache: new InMemoryCache(),
+  uri: "https://estore.onrender.com",
 });
 class App extends Component {
-	render() {
-		return (
-			<ApolloProvider client={client}>
-				<BrowserRouter>
-					<Navbar />
-					{this.props.isMinicartOpen && <MiniCart />}
-					<div className="page-container">
-						<Switch>
-							<Route path="/products/:id" component={ProductDescription} />
-							<Route path={"/cart"} component={Cart} />
-							<Route path="/" exact component={Categories} />
-						</Switch>
-					</div>
-				</BrowserRouter>
-			</ApolloProvider>
-		);
-	}
+  render() {
+    return (
+      <ApolloProvider client={client}>
+        <BrowserRouter>
+          <Navbar />
+          {this.props.isMinicartOpen && <MiniCart />}
+          <div className="page-container">
+            <Switch>
+              <Route path="/products/:id" component={ProductDescription} />
+              <Route path={"/cart"} component={Cart} />
+              <Route path="/" exact component={Categories} />
+            </Switch>
+          </div>
+        </BrowserRouter>
+      </ApolloProvider>
+    );
+  }
 }
 
 const mapStateToProps = (state) => ({
-	isMinicartOpen: state.app.isMinicartOpen,
+  isMinicartOpen: state.app.isMinicartOpen,
 });
 
 export default connect(mapStateToProps)(App);
